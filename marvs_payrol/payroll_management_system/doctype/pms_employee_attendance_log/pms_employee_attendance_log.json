@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-17 21:27:17.288816",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "attendance_logs_section",
+  "employee",
+  "attendance_date",
+  "status",
+  "total_work_hours",
+  "column_break_fzjj",
+  "am_time_in",
+  "am_time_out",
+  "column_break_voof",
+  "pm_time_in",
+  "pm_time_out"
+ ],
+ "fields": [
+  {
+   "fieldname": "attendance_logs_section",
+   "fieldtype": "Section Break",
+   "label": "Attendance Logs"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "PMS-Employee"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Present\nAbsent\nLeave\nHalf Day\nHoliday\nRest Day"
+  },
+  {
+   "fieldname": "column_break_fzjj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "am_time_in",
+   "fieldtype": "Datetime",
+   "label": "Time In (am)"
+  },
+  {
+   "fieldname": "am_time_out",
+   "fieldtype": "Datetime",
+   "label": "Time Out (am)"
+  },
+  {
+   "fieldname": "column_break_voof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pm_time_in",
+   "fieldtype": "Datetime",
+   "label": "Time In (pm)"
+  },
+  {
+   "fieldname": "pm_time_out",
+   "fieldtype": "Datetime",
+   "label": "Time Out (pm)"
+  },
+  {
+   "fieldname": "attendance_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "total_work_hours",
+   "fieldtype": "Float",
+   "label": "Total Work Hours"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-18 07:30:48.070423",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Employee Attendance Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

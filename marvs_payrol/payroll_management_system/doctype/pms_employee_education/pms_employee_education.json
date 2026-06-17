@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-17 18:09:35.437698",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "education_details_section",
+  "schooluniversity",
+  "general_ave",
+  "column_break_atey",
+  "qualification",
+  "level",
+  "year_graduated",
+  "section_break_dwoa",
+  "major_subject"
+ ],
+ "fields": [
+  {
+   "fieldname": "education_details_section",
+   "fieldtype": "Section Break",
+   "label": "Education Details"
+  },
+  {
+   "fieldname": "schooluniversity",
+   "fieldtype": "Small Text",
+   "label": "School/University"
+  },
+  {
+   "fieldname": "general_ave",
+   "fieldtype": "Data",
+   "label": "General Ave."
+  },
+  {
+   "fieldname": "column_break_atey",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "qualification",
+   "fieldtype": "Data",
+   "label": "Qualification"
+  },
+  {
+   "fieldname": "level",
+   "fieldtype": "Select",
+   "label": "Level",
+   "options": "Graduate\nPost Graduate\nUnder Graduate"
+  },
+  {
+   "fieldname": "year_graduated",
+   "fieldtype": "Date",
+   "label": "Year Graduated"
+  },
+  {
+   "fieldname": "section_break_dwoa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "major_subject",
+   "fieldtype": "Small Text",
+   "label": "Major Subject (Optional)"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-17 18:21:50.239085",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Employee Education",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-17 17:59:33.135662",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "goverment_id_details_section",
+  "id_no",
+  "valid_up_to",
+  "column_break_ojad",
+  "date_issue",
+  "place_of_issue"
+ ],
+ "fields": [
+  {
+   "fieldname": "goverment_id_details_section",
+   "fieldtype": "Section Break",
+   "label": "Goverment ID Details"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "id_no",
+   "fieldtype": "Data",
+   "label": "ID No.:"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "valid_up_to",
+   "fieldtype": "Date",
+   "label": "Valid-up to"
+  },
+  {
+   "fieldname": "column_break_ojad",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "date_issue",
+   "fieldtype": "Date",
+   "label": "Date Issue"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "description": "This is a place where you process and get your id.",
+   "fieldname": "place_of_issue",
+   "fieldtype": "Small Text",
+   "label": "Place of Issue"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-06-17 18:03:58.282307",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Goverment Id",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

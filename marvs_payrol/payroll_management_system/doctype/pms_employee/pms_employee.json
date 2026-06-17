@@ -1,0 +1,666 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "EMP-.#####",
+ "creation": "2026-06-17 16:49:55.826592",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "overview_tab",
+  "employee_details_section",
+  "user",
+  "first_name",
+  "middle_name",
+  "last_name",
+  "full_name",
+  "column_break_csnf",
+  "gender",
+  "date_of_birth",
+  "column_break_apvj",
+  "date_hired",
+  "image",
+  "status",
+  "employment_status",
+  "company_details_section",
+  "company_name",
+  "company_address",
+  "column_break_pufw",
+  "department",
+  "position",
+  "contact_address",
+  "contact_details_section",
+  "mobile_no",
+  "alternative_mobile_no",
+  "column_break_wifs",
+  "email_address",
+  "alternative_email_address",
+  "column_break_zfqm",
+  "telephone_no",
+  "address_section",
+  "current_address",
+  "address_status_current",
+  "column_break_zhmp",
+  "permanent_address",
+  "address_status_permanent",
+  "emergency_contact_section",
+  "emergency_contact_name",
+  "column_break_ngru",
+  "emergency_contact_phone",
+  "column_break_ylfj",
+  "relationship",
+  "personal_details_tab",
+  "marital_status",
+  "family_background",
+  "column_break_zwtr",
+  "blood_group",
+  "health_details",
+  "valid_goverment_id_section",
+  "list_of_goverment_id",
+  "profile_tab",
+  "bio_cover_letter",
+  "education_qualifications_section",
+  "education",
+  "work_history_section",
+  "work_experience",
+  "tab_2_tab",
+  "offer_date",
+  "column_break_zebd",
+  "confirmation_date",
+  "contract_end_date",
+  "not_contractual",
+  "column_break_rsnh",
+  "notice_days",
+  "date_of_retirement",
+  "resignation_tab",
+  "resignation_letter_date",
+  "last_day",
+  "column_break_ysfh",
+  "exit_interview",
+  "exit_interview_date",
+  "column_break_mufe",
+  "leave_encashed",
+  "encashment_date",
+  "feedback_section",
+  "reason_for_leaving",
+  "column_break_ewit",
+  "feedback",
+  "salary_tab",
+  "bank_detail_section",
+  "bank_name",
+  "column_break_yqjc",
+  "account_no",
+  "salary_detail_section",
+  "basic_salary",
+  "allowance",
+  "column_break_bwra",
+  "hourly_rate",
+  "daily_rate",
+  "government_contribution_tab",
+  "sss_number",
+  "philhealth_number",
+  "column_break_zkhe",
+  "tin_number",
+  "pagibig_number_mid",
+  "attendance_leave",
+  "attendance_section",
+  "attendance_logs",
+  "leave_section",
+  "leave_logs"
+ ],
+ "fields": [
+  {
+   "fieldname": "overview_tab",
+   "fieldtype": "Tab Break",
+   "label": "Overview"
+  },
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "middle_name",
+   "fieldtype": "Data",
+   "label": "Middle Name"
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Onboarding"
+  },
+  {
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Details"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_csnf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Link",
+   "label": "Gender",
+   "options": "PMS-Gender",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_apvj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_hired",
+   "fieldtype": "Date",
+   "label": "Date Hired",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nInactive\nSuspended",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employment_status",
+   "fieldtype": "Select",
+   "label": "Employment Status",
+   "options": "OJT\nTrainee\nProbitionary\nPart-time\nFull-time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_details_section",
+   "fieldtype": "Section Break",
+   "label": "Company Details"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_address",
+   "fieldtype": "Small Text",
+   "label": "Company Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pufw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "PMS-Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Link",
+   "label": "Position",
+   "options": "PMS-Position",
+   "reqd": 1
+  },
+  {
+   "fieldname": "offer_date",
+   "fieldtype": "Date",
+   "label": "Offer Date"
+  },
+  {
+   "fieldname": "column_break_zebd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "confirmation_date",
+   "fieldtype": "Date",
+   "label": "Confirmation Date"
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date"
+  },
+  {
+   "fieldname": "column_break_rsnh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notice_days",
+   "fieldtype": "Int",
+   "label": "Notice (Days)"
+  },
+  {
+   "fieldname": "date_of_retirement",
+   "fieldtype": "Date",
+   "label": "Date of Retirement"
+  },
+  {
+   "default": "0",
+   "fieldname": "not_contractual",
+   "fieldtype": "Check",
+   "label": "Not Contractual?"
+  },
+  {
+   "fieldname": "contact_address",
+   "fieldtype": "Tab Break",
+   "label": "Contact & Address"
+  },
+  {
+   "fieldname": "contact_details_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Details"
+  },
+  {
+   "fieldname": "mobile_no",
+   "fieldtype": "Data",
+   "label": "Mobile No.:",
+   "reqd": 1
+  },
+  {
+   "fieldname": "alternative_mobile_no",
+   "fieldtype": "Date",
+   "label": "Alternative Mobile No.: (Optional)"
+  },
+  {
+   "fieldname": "column_break_wifs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "fieldname": "alternative_email_address",
+   "fieldtype": "Data",
+   "label": "Alternative Email (Optional)"
+  },
+  {
+   "fieldname": "column_break_zfqm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telephone_no",
+   "fieldtype": "Data",
+   "label": "Telephone No.:"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "current_address",
+   "fieldtype": "Small Text",
+   "label": "Current Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "address_status_current",
+   "fieldtype": "Select",
+   "label": "Address Status (Current)",
+   "options": "Owned\nRent"
+  },
+  {
+   "fieldname": "column_break_zhmp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "permanent_address",
+   "fieldtype": "Small Text",
+   "label": "Permanent Address"
+  },
+  {
+   "fieldname": "address_status_permanent",
+   "fieldtype": "Select",
+   "label": "Address Status (Permanent)",
+   "options": "Owned\nRent"
+  },
+  {
+   "fieldname": "emergency_contact_section",
+   "fieldtype": "Section Break",
+   "label": "Emergency Contact"
+  },
+  {
+   "fieldname": "emergency_contact_name",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Name"
+  },
+  {
+   "fieldname": "column_break_ngru",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "emergency_contact_phone",
+   "fieldtype": "Data",
+   "label": "Emergency Contact Phone"
+  },
+  {
+   "fieldname": "column_break_ylfj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "relationship",
+   "fieldtype": "Select",
+   "label": "Relationship",
+   "options": "Mother\nFather\nSister\nBrother\nDaughter\nSon\nRelatives"
+  },
+  {
+   "fieldname": "personal_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Personal Details"
+  },
+  {
+   "default": "Single",
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status",
+   "options": "Single\nMarried\nDivorced\nWidowed"
+  },
+  {
+   "description": "Here you can maintain family details like name and occupation of parent, spouse and children",
+   "fieldname": "family_background",
+   "fieldtype": "Small Text",
+   "label": "Family Background"
+  },
+  {
+   "fieldname": "column_break_zwtr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blood_group",
+   "fieldtype": "Select",
+   "label": "Blood Group",
+   "options": "\nA+\nA-\nB+\nB-\nAB+\nAB-\nO+\nO-"
+  },
+  {
+   "description": "Here you can maintain height, weight, allergies, medical concerns etc",
+   "fieldname": "health_details",
+   "fieldtype": "Small Text",
+   "label": "Health Details"
+  },
+  {
+   "fieldname": "valid_goverment_id_section",
+   "fieldtype": "Section Break",
+   "label": "Valid Goverment ID"
+  },
+  {
+   "fieldname": "list_of_goverment_id",
+   "fieldtype": "Table",
+   "label": "List of Goverment ID ",
+   "options": "PMS-Goverment Id"
+  },
+  {
+   "fieldname": "profile_tab",
+   "fieldtype": "Tab Break",
+   "label": "Profile"
+  },
+  {
+   "description": "Short biography for website and other publications.",
+   "fieldname": "bio_cover_letter",
+   "fieldtype": "Text Editor",
+   "label": "Bio / Cover Letter"
+  },
+  {
+   "fieldname": "education_qualifications_section",
+   "fieldtype": "Section Break",
+   "label": "Education Qualifications"
+  },
+  {
+   "fieldname": "education",
+   "fieldtype": "Table",
+   "label": "Education",
+   "options": "PMS-Employee Education"
+  },
+  {
+   "fieldname": "work_history_section",
+   "fieldtype": "Section Break",
+   "label": "Work History"
+  },
+  {
+   "fieldname": "work_experience",
+   "fieldtype": "Table",
+   "label": "Work Experience",
+   "options": "PMS-Work History"
+  },
+  {
+   "fieldname": "resignation_tab",
+   "fieldtype": "Tab Break",
+   "label": "Resignation"
+  },
+  {
+   "fieldname": "resignation_letter_date",
+   "fieldtype": "Date",
+   "label": "Resignation Letter Date"
+  },
+  {
+   "fieldname": "last_day",
+   "fieldtype": "Date",
+   "label": "Last Day"
+  },
+  {
+   "fieldname": "column_break_ysfh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "exit_interview",
+   "fieldtype": "Data",
+   "label": "Exit Interview"
+  },
+  {
+   "fieldname": "exit_interview_date",
+   "fieldtype": "Date",
+   "label": "Exit Interview Date"
+  },
+  {
+   "fieldname": "column_break_mufe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "leave_encashed",
+   "fieldtype": "Select",
+   "label": "Leave Encashed?",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "encashment_date",
+   "fieldtype": "Date",
+   "label": "Encashment Date"
+  },
+  {
+   "fieldname": "feedback_section",
+   "fieldtype": "Section Break",
+   "label": "Feedback"
+  },
+  {
+   "fieldname": "reason_for_leaving",
+   "fieldtype": "Small Text",
+   "label": "Reason for leaving"
+  },
+  {
+   "fieldname": "column_break_ewit",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "feedback",
+   "fieldtype": "Small Text",
+   "label": "Feedback"
+  },
+  {
+   "fieldname": "salary_tab",
+   "fieldtype": "Tab Break",
+   "label": "Salary"
+  },
+  {
+   "fieldname": "bank_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Bank Detail"
+  },
+  {
+   "fieldname": "bank_name",
+   "fieldtype": "Link",
+   "label": "Bank Name",
+   "options": "PMS-Bank",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_yqjc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "account_no",
+   "fieldtype": "Data",
+   "label": "Account No.:"
+  },
+  {
+   "fieldname": "salary_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Salary Detail"
+  },
+  {
+   "fieldname": "basic_salary",
+   "fieldtype": "Currency",
+   "label": "Basic Salary"
+  },
+  {
+   "fieldname": "allowance",
+   "fieldtype": "Currency",
+   "label": "Allowance"
+  },
+  {
+   "fieldname": "column_break_bwra",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hourly_rate",
+   "fieldtype": "Currency",
+   "label": "Hourly Rate"
+  },
+  {
+   "fieldname": "daily_rate",
+   "fieldtype": "Currency",
+   "label": "Daily Rate"
+  },
+  {
+   "fieldname": "government_contribution_tab",
+   "fieldtype": "Tab Break",
+   "label": "Government Contribution"
+  },
+  {
+   "fieldname": "sss_number",
+   "fieldtype": "Data",
+   "label": "SSS Number"
+  },
+  {
+   "fieldname": "philhealth_number",
+   "fieldtype": "Data",
+   "label": "Philhealth Number"
+  },
+  {
+   "fieldname": "column_break_zkhe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tin_number",
+   "fieldtype": "Data",
+   "label": "Tin Number"
+  },
+  {
+   "fieldname": "pagibig_number_mid",
+   "fieldtype": "Data",
+   "label": "Pagibig Number (MID)"
+  },
+  {
+   "fieldname": "attendance_leave",
+   "fieldtype": "Tab Break",
+   "label": "Attendance & Leave"
+  },
+  {
+   "fieldname": "attendance_section",
+   "fieldtype": "Section Break",
+   "label": "Attendance"
+  },
+  {
+   "fieldname": "attendance_logs",
+   "fieldtype": "Table",
+   "label": "Attendance Logs",
+   "options": "PMS-Employee Attendance Log"
+  },
+  {
+   "fieldname": "leave_section",
+   "fieldtype": "Section Break",
+   "label": "Leave"
+  },
+  {
+   "fieldname": "leave_logs",
+   "fieldtype": "Table",
+   "label": "Leave Logs",
+   "options": "PMS-Employee Leave Log"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-17 23:03:54.794876",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Employee",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
