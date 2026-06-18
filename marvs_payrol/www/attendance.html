@@ -13,17 +13,42 @@
         ========================== -->
         <div class="mb-3">
             <label class="form-label">Employee ID</label>
-            <input
-                type="text"
-                id="employee"
-                class="form-control"
-                placeholder="Enter PMS-Employee ID">
+            <input type="text" id="employee" class="form-control" placeholder="Enter PMS-Employee ID">
         </div>
 
         <!-- EMPLOYEE NAME -->
         <div class="mb-3">
             <small class="text-muted">Employee Name</small><br>
             <strong id="employee-name">-</strong>
+        </div>
+
+        <hr>
+
+        <!-- =========================
+             TIME IN / OUT
+        ========================== -->
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">AM Time In</label>
+                <input type="time" id="am_time_in" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">AM Time Out</label>
+                <input type="time" id="am_time_out" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">PM Time In</label>
+                <input type="time" id="pm_time_in" class="form-control">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">PM Time Out</label>
+                <input type="time" id="pm_time_out" class="form-control">
+            </div>
+
         </div>
 
         <!-- =========================
@@ -35,21 +60,6 @@
 
         <!-- MESSAGE -->
         <div class="mt-3" id="message"></div>
-
-        <hr>
-
-        <!-- =========================
-             LIVE SUMMARY
-        ========================== -->
-        <div id="summary">
-            <p class="mb-1">
-                <b>Status:</b> <span id="status">-</span>
-            </p>
-
-            <p class="mb-1">
-                <b>Total Hours:</b> <span id="hours">0</span>
-            </p>
-        </div>
 
         <hr>
 
@@ -71,6 +81,8 @@
                         <th>PM In</th>
                         <th>PM Out</th>
                         <th>Hours</th>
+                        <th>Late (min)</th>
+                        <th>OT (hrs)</th>
                     </tr>
                 </thead>
 

@@ -11,6 +11,8 @@
   "attendance_date",
   "status",
   "total_work_hours",
+  "late_minute",
+  "total_overtime_hours",
   "column_break_fzjj",
   "am_time_in",
   "am_time_out",
@@ -73,12 +75,22 @@
    "fieldname": "total_work_hours",
    "fieldtype": "Float",
    "label": "Total Work Hours"
+  },
+  {
+   "fieldname": "late_minute",
+   "fieldtype": "Float",
+   "label": "Total Late (minute)"
+  },
+  {
+   "fieldname": "total_overtime_hours",
+   "fieldtype": "Float",
+   "label": "Total Overtime (hours)"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 07:30:48.070423",
+ "modified": "2026-06-18 10:45:03.042118",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Employee Attendance Log",

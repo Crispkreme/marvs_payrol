@@ -2,7 +2,6 @@ frappe.ready(() => {
 
     let current_employee = null;
 
-
     // =========================
     // LOAD EMPLOYEE INFO
     // =========================
@@ -12,12 +11,7 @@ frappe.ready(() => {
             method: "marvs_payrol.www.attendance.get_employee_info",
             args: { employee: employee },
             callback: function (r) {
-
-                if (r.message) {
-                    $("#employee-name").text(r.message.employee_name || "-");
-                } else {
-                    $("#employee-name").text("-");
-                }
+                $("#employee-name").text(r.message?.employee_name || "-");
             }
         });
     }
@@ -33,24 +27,22 @@ frappe.ready(() => {
             args: { employee: employee },
             callback: function (r) {
 
-                let rows = "";
-
                 let data = r.message || [];
 
-                if (!Array.isArray(data)) {
-                    data = [];
-                }
+                if (!Array.isArray(data)) data = [];
 
                 if (data.length === 0) {
                     $("#history-body").html(`
                         <tr>
-                            <td colspan="7" class="text-center text-muted">
+                            <td colspan="9" class="text-center text-muted">
                                 No attendance records
                             </td>
                         </tr>
                     `);
                     return;
                 }
+
+                let rows = "";
 
                 data.forEach(row => {
 
@@ -63,6 +55,8 @@ frappe.ready(() => {
                             <td>${row.pm_time_in || "-"}</td>
                             <td>${row.pm_time_out || "-"}</td>
                             <td>${row.total_work_hours || 0}</td>
+                            <td>${row.late_minute || 0}</td>
+                            <td>${row.total_overtime_hours || 0}</td>
                         </tr>
                     `;
                 });
@@ -78,7 +72,7 @@ frappe.ready(() => {
     // =========================
     $("#attendance-btn").click(function () {
 
-        let employee = $("#employee").val();
+        let employee = $("#employee").val().trim();
 
         if (!employee) {
             $("#message").html(`
@@ -89,19 +83,25 @@ frappe.ready(() => {
             return;
         }
 
-        // prevent spam clicks
+        let payload = {
+            employee: employee,
+            am_time_in: $("#am_time_in").val(),
+            am_time_out: $("#am_time_out").val(),
+            pm_time_in: $("#pm_time_in").val(),
+            pm_time_out: $("#pm_time_out").val()
+        };
+
         $("#attendance-btn").prop("disabled", true);
 
         frappe.call({
             method: "marvs_payrol.www.attendance.record_attendance",
-            args: { employee: employee },
+            args: payload,
             callback: function (r) {
+
+                $("#attendance-btn").prop("disabled", false);
 
                 if (!r.message) return;
 
-                // =========================
-                // SHOW MESSAGE ONLY
-                // =========================
                 if (r.message.success) {
 
                     $("#message").html(`
@@ -110,8 +110,11 @@ frappe.ready(() => {
                         </div>
                     `);
 
+                    // =========================
+                    // LIVE SUMMARY (UPDATED)
+                    // =========================
                     $("#status").text(r.message.status || "-");
-                    $("#hours").text(r.message.total_hours || 0);
+                    $("#hours").text(r.message.total_work_hours || 0);
 
                 } else {
 
@@ -122,9 +125,6 @@ frappe.ready(() => {
                     `);
                 }
 
-                // =========================
-                // 🔥 ALWAYS LOAD HISTORY (IMPORTANT FIX)
-                // =========================
                 load_history(employee);
                 load_employee(employee);
             }
@@ -133,7 +133,7 @@ frappe.ready(() => {
 
 
     // =========================
-    // EMPLOYEE INPUT CHANGE
+    // EMPLOYEE CHANGE
     // =========================
     $("#employee").on("change", function () {
 
@@ -141,7 +141,6 @@ frappe.ready(() => {
 
         if (!employee) return;
 
-        // prevent duplicate calls
         if (current_employee === employee) return;
 
         current_employee = employee;
