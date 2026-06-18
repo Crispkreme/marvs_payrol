@@ -97,11 +97,18 @@
   "hourly_rate",
   "daily_rate",
   "government_contribution_tab",
+  "goverment_section",
   "sss_number",
   "philhealth_number",
   "column_break_zkhe",
   "tin_number",
   "pagibig_number_mid",
+  "deduction_section",
+  "sss_contribution",
+  "philhealth_contribution",
+  "column_break_iigm",
+  "tin_contribution",
+  "pagibig_contribution",
   "attendance_leave"
  ],
  "fields": [
@@ -614,13 +621,51 @@
    "fieldtype": "Select",
    "label": "Salary Type",
    "options": "Monthly\nDaily\nHourly"
+  },
+  {
+   "fieldname": "goverment_section",
+   "fieldtype": "Section Break",
+   "label": "Goverment "
+  },
+  {
+   "fieldname": "deduction_section",
+   "fieldtype": "Section Break",
+   "label": "Deduction"
+  },
+  {
+   "fieldname": "sss_contribution",
+   "fieldtype": "Currency",
+   "label": "SSS Contribution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_iigm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tin_contribution",
+   "fieldtype": "Currency",
+   "label": "Tin Contribution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pagibig_contribution",
+   "fieldtype": "Currency",
+   "label": "Pagibig Contribution",
+   "read_only": 1
+  },
+  {
+   "fieldname": "philhealth_contribution",
+   "fieldtype": "Currency",
+   "label": "Philhealth Contribution",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 10:39:37.486279",
+ "modified": "2026-06-18 12:23:24.319894",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Employee",

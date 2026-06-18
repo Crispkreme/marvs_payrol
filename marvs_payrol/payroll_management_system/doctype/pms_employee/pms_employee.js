@@ -2,23 +2,98 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("PMS-Employee", {
-	refresh(frm) {
+
+    refresh(frm) {
+        compute_deductions(frm);
         toggle_contract_date(frm);
+    },
+
+    basic_salary(frm) {
+        compute_deductions(frm);
+    },
+
+    employment_status(frm) {
+        compute_deductions(frm);
     },
 
     not_contractual(frm) {
         toggle_contract_date(frm);
     }
+
 });
 
+// =========================
+// CONTRACT TOGGLE
+// =========================
 function toggle_contract_date(frm) {
-    if (frm.doc.not_contractual) {
+
+    let is_not_contractual = frm.doc.not_contractual ? 1 : 0;
+
+    if (is_not_contractual) {
+
         frm.set_df_property('contract_end_date', 'read_only', 1);
         frm.set_df_property('contract_end_date', 'reqd', 0);
+        frm.set_value('contract_end_date', null);
 
-        // optional: clear value
-        // frm.set_value('contract_end_date', null);
     } else {
+
         frm.set_df_property('contract_end_date', 'read_only', 0);
+        frm.set_df_property('contract_end_date', 'reqd', 1);
     }
+
+    frm.refresh_field('contract_end_date');
+}
+
+// =========================
+// DEDUCTION COMPUTATION
+// =========================
+function compute_deductions(frm) {
+
+    let salary = frm.doc.basic_salary || 0;
+    let status = frm.doc.employment_status;
+
+    const no_deduction = ["OJT", "Trainee"];
+
+    let sss = 0;
+    let philhealth = 0;
+    let pagibig = 0;
+    let tin = 0;
+
+    if (!no_deduction.includes(status)) {
+
+        // =========================
+        // SIMPLE PH RULES (MVP)
+        // =========================
+
+        // SSS approx 4.5%
+        sss = salary * 0.045;
+
+        // PhilHealth approx 2.5%
+        philhealth = salary * 0.025;
+
+        // Pag-IBIG fixed cap
+        pagibig = salary >= 1500 ? 200 : 100;
+
+        // Tax placeholder
+        tin = salary * 0.02;
+    }
+
+    frm.set_value("sss_contribution", round2(sss));
+    frm.set_value("philhealth_contribution", round2(philhealth));
+    frm.set_value("pagibig_contribution", round2(pagibig));
+    frm.set_value("tin_contribution", round2(tin));
+
+    frm.refresh_fields([
+        "sss_contribution",
+        "philhealth_contribution",
+        "pagibig_contribution",
+        "tin_contribution"
+    ]);
+}
+
+// =========================
+// HELPER
+// =========================
+function round2(val) {
+    return Math.round((val || 0) * 100) / 100;
 }
