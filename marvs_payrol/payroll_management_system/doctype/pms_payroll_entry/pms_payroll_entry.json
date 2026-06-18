@@ -20,7 +20,13 @@
   "pagibig_deduction",
   "column_break_yedv",
   "philhealth_deduction",
-  "tin_deduction"
+  "tin_deduction",
+  "section_break_sxve",
+  "total_work_hr",
+  "total_overtime_min",
+  "column_break_tkja",
+  "total_late_min",
+  "total_absent"
  ],
  "fields": [
   {
@@ -84,17 +90,19 @@
   {
    "fieldname": "deduction_summary_section",
    "fieldtype": "Section Break",
-   "label": "Deduction Summary"
+   "label": "Summary"
   },
   {
    "fieldname": "sss_deduction",
    "fieldtype": "Currency",
-   "label": "SSS Deduction"
+   "label": "SSS Deduction",
+   "read_only": 1
   },
   {
    "fieldname": "pagibig_deduction",
    "fieldtype": "Currency",
-   "label": "Pagibig Deduction"
+   "label": "Pagibig Deduction",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_yedv",
@@ -103,18 +111,48 @@
   {
    "fieldname": "philhealth_deduction",
    "fieldtype": "Currency",
-   "label": "Philhealth Deduction"
+   "label": "Philhealth Deduction",
+   "read_only": 1
   },
   {
    "fieldname": "tin_deduction",
    "fieldtype": "Currency",
-   "label": "Tin Deduction"
+   "label": "Tin Deduction",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_sxve",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_work_hr",
+   "fieldtype": "Float",
+   "label": "Total Work (hr)"
+  },
+  {
+   "fieldname": "total_overtime_min",
+   "fieldtype": "Float",
+   "label": "Total Overtime (min)"
+  },
+  {
+   "fieldname": "column_break_tkja",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_late_min",
+   "fieldtype": "Float",
+   "label": "Total Late (min)"
+  },
+  {
+   "fieldname": "total_absent",
+   "fieldtype": "Float",
+   "label": "Total Absent"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 12:11:29.896224",
+ "modified": "2026-06-18 12:49:20.363681",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Payroll Entry",
