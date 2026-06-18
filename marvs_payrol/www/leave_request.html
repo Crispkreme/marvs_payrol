@@ -1,0 +1,50 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="container mt-5">
+
+    <div class="card p-4 shadow-sm">
+
+        <h3>Leave Request Form</h3>
+
+        <div class="mb-2">
+            <label>Employee ID</label>
+            <input type="text" id="employee" class="form-control">
+        </div>
+
+        <div class="mb-2">
+            <label>Leave Type</label>
+            <select id="leave_type" class="form-control">
+                <option>Vacation Leave</option>
+                <option>Sick Leave</option>
+                <option>Emergency Leave</option>
+            </select>
+        </div>
+
+        <div class="mb-2">
+            <label>From Date</label>
+            <input type="date" id="from_date" class="form-control">
+        </div>
+
+        <div class="mb-2">
+            <label>To Date</label>
+            <input type="date" id="to_date" class="form-control">
+        </div>
+
+        <div class="mb-2">
+            <label>Reason</label>
+            <textarea id="reason" class="form-control"></textarea>
+        </div>
+
+        <button id="submit" class="btn btn-primary w-100">
+            Submit Leave Request
+        </button>
+
+        <div id="message" class="mt-3"></div>
+
+    </div>
+
+</div>
+
+{% endblock %}

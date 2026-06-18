@@ -101,11 +101,7 @@
   "column_break_zkhe",
   "tin_number",
   "pagibig_number_mid",
-  "attendance_leave",
-  "attendance_section",
-  "attendance_logs",
-  "leave_section",
-  "leave_logs"
+  "attendance_leave"
  ],
  "fields": [
   {
@@ -304,7 +300,8 @@
   {
    "fieldname": "email_address",
    "fieldtype": "Data",
-   "label": "Email Address"
+   "label": "Email Address",
+   "reqd": 1
   },
   {
    "fieldname": "alternative_email_address",
@@ -610,35 +607,13 @@
    "fieldname": "attendance_leave",
    "fieldtype": "Tab Break",
    "label": "Attendance & Leave"
-  },
-  {
-   "fieldname": "attendance_section",
-   "fieldtype": "Section Break",
-   "label": "Attendance"
-  },
-  {
-   "fieldname": "attendance_logs",
-   "fieldtype": "Table",
-   "label": "Attendance Logs",
-   "options": "PMS-Employee Attendance Log"
-  },
-  {
-   "fieldname": "leave_section",
-   "fieldtype": "Section Break",
-   "label": "Leave"
-  },
-  {
-   "fieldname": "leave_logs",
-   "fieldtype": "Table",
-   "label": "Leave Logs",
-   "options": "PMS-Employee Leave Log"
   }
  ],
  "grid_page_length": 50,
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-17 23:03:54.794876",
+ "modified": "2026-06-18 09:21:06.795525",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Employee",

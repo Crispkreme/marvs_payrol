@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class PMSAttendance(Document):
+class PMSLeaveRequest(Document):
 	pass
