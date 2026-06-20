@@ -1,5 +1,6 @@
 import frappe
-from frappe.utils import getdate, time_diff_in_hours
+from datetime import datetime
+from frappe.model.document import Document
 
 
 # =====================================================
@@ -37,43 +38,48 @@ def get_employee_info(employee):
 # SUBMIT OVERTIME
 # =====================================================
 @frappe.whitelist()
-def submit_overtime(employee, attendance_date, start_time, end_time, reason):
+def create_overtime(employee, attendance_date, start_time, end_time, reason):
 
-    if not employee:
-        frappe.throw("Employee is required")
+    try:
 
-    if not attendance_date:
-        frappe.throw("Attendance date is required")
+        if not employee:
+            return {"success": False, "message": "Employee is required"}
 
-    if not start_time or not end_time:
-        frappe.throw("Start and End time are required")
+        fmt = "%H:%M"
 
-    if not reason:
-        frappe.throw("Reason is required")
+        start = datetime.strptime(start_time, fmt)
+        end = datetime.strptime(end_time, fmt)
 
-    # =====================================================
-    # COMPUTE HOURS
-    # =====================================================
-    hours = time_diff_in_hours(end_time, start_time)
+        diff = end - start
 
-    # =====================================================
-    # CREATE OT DOC
-    # =====================================================
-    doc = frappe.get_doc({
-        "doctype": "PMS-Overtime",
-        "employee": employee,
-        "attendance_date": getdate(attendance_date),
-        "start_time": start_time,
-        "end_time": end_time,
-        "reason": reason,
-        "requested_hours": round(hours, 2),
-        "status": "Pending"
-    })
+        if diff.total_seconds() < 0:
+            diff = (
+                (datetime.strptime("24:00", fmt) - start) +
+                (end - datetime.strptime("00:00", fmt))
+            )
 
-    doc.insert(ignore_permissions=True)
+        hours = round(diff.total_seconds() / 3600, 2)
 
-    return {
-        "success": True,
-        "message": "Overtime request submitted successfully",
-        "requested_hours": doc.requested_hours
-    }
+        doc = frappe.new_doc("PMS-Overtime Request")
+
+        doc.employee = employee
+        doc.attendance_date = attendance_date
+        doc.start_time = start_time
+        doc.end_time = end_time
+        doc.requested_hours = hours
+        doc.reason = reason
+        doc.status = "Pending"
+        doc.employee_status = "Pending"
+
+        doc.insert(ignore_permissions=True)
+
+        return {
+            "success": True,
+            "message": "Overtime request submitted successfully"
+        }
+
+    except Exception:
+        return {
+            "success": False,
+            "message": frappe.get_traceback()
+        }

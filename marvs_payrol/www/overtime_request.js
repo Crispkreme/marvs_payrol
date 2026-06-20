@@ -70,73 +70,67 @@ frappe.ready(() => {
         load_employee(employee);
     });
 
-    // =====================================================
-    // SUBMIT OVERTIME
-    // =====================================================
-    $("#submit_btn").click(function () {
+    // =========================
+    // SUBMIT OVERTIME REQUEST
+    // =========================
+    $("#submit_btn").click(function (e) {
 
-        let employee = $("#employee").val();
-        let attendance_date = $("#attendance_date").val();
-        let start_time = $("#start_time").val();
-        let end_time = $("#end_time").val();
-        let reason = $("#reason").val();
+        e.preventDefault();
 
-        // =========================
-        // VALIDATION
-        // =========================
-        if (!employee || !attendance_date || !start_time || !end_time || !reason) {
-            $("#message").css("color", "red").text("Please fill all fields.");
+        let data = {
+            employee: $("#employee").val(),
+            attendance_date: $("#attendance_date").val(),
+            start_time: $("#start_time").val(),
+            end_time: $("#end_time").val(),
+            reason: $("#reason").val()
+        };
+
+        if (!data.employee || !data.attendance_date || !data.start_time || !data.end_time) {
+            $("#message").html(`
+                <div class="alert alert-danger">
+                    Please fill all required fields
+                </div>
+            `);
             return;
         }
 
-        if (end_time <= start_time) {
-            $("#message").css("color", "red").text("End time must be greater than start time.");
-            return;
-        }
-
-        // =========================
-        // LOADING
-        // =========================
         $("#submit_btn").prop("disabled", true).text("Submitting...");
 
         frappe.call({
-            method: "marvs_payrol.www.overtime_request.submit_overtime",
-            args: {
-                employee: employee,
-                attendance_date: attendance_date,
-                start_time: start_time,
-                end_time: end_time,
-                reason: reason
-            },
+            method: "marvs_payrol.www.overtime_request.create_overtime",
+            args: data,
+
             callback: function (r) {
 
                 $("#submit_btn").prop("disabled", false).text("Submit Overtime Request");
 
                 if (r.message && r.message.success) {
 
-                    $("#message")
-                        .css("color", "green")
-                        .text(r.message.message);
+                    $("#message").html(`
+                        <div class="alert alert-success">
+                            ${r.message.message}
+                        </div>
+                    `);
 
-                    // clear form
+                    // RESET FORM
+                    $("#employee").val("");
                     $("#attendance_date").val("");
                     $("#start_time").val("");
                     $("#end_time").val("");
                     $("#reason").val("");
 
+                    $("#employee-name").text("-");
+                    $("#employee-status").text("-");
+
                 } else {
-                    $("#message")
-                        .css("color", "red")
-                        .text(r.message?.message || "Failed to submit request.");
+
+                    $("#message").html(`
+                        <div class="alert alert-danger">
+                            ${r.message.message}
+                        </div>
+                    `);
+
                 }
-            },
-
-            error: function () {
-                $("#submit_btn").prop("disabled", false).text("Submit Overtime Request");
-
-                $("#message")
-                    .css("color", "red")
-                    .text("Server error occurred.");
             }
         });
 
