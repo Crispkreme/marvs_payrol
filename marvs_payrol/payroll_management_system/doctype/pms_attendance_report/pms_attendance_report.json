@@ -1,0 +1,190 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-20 12:36:03.792504",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "attendance_report_detail_section",
+  "employee",
+  "column_break_dfxl",
+  "status",
+  "section_break_aowe",
+  "day_shift_hrs",
+  "overtime_hrs",
+  "column_break_ywgy",
+  "night_shift_hrs",
+  "night_overtime_hrs",
+  "column_break_zfzc",
+  "regular_holiday",
+  "regular_holiday_ot",
+  "section_break_upey",
+  "special_holiday",
+  "special_holiday_ot",
+  "column_break_cjlg",
+  "rest_day",
+  "rest_day_ot",
+  "column_break_sllm",
+  "absent",
+  "leave"
+ ],
+ "fields": [
+  {
+   "fieldname": "attendance_report_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Attendance Report Detail"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "PMS-Employee",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "day_shift_hrs",
+   "fieldtype": "Int",
+   "label": "Day Shift",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "night_shift_hrs",
+   "fieldtype": "Int",
+   "label": "Night Shift",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "overtime_hrs",
+   "fieldtype": "Int",
+   "label": "Day Shift (OT)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "night_overtime_hrs",
+   "fieldtype": "Int",
+   "label": "Night Shift (OT)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dfxl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status"
+  },
+  {
+   "fieldname": "section_break_aowe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ywgy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_zfzc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "regular_holiday",
+   "fieldtype": "Int",
+   "label": "Regular Holiday",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "regular_holiday_ot",
+   "fieldtype": "Int",
+   "label": "Regular Holiday (OT)",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "special_holiday",
+   "fieldtype": "Int",
+   "label": "Special Holiday",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "special_holiday_ot",
+   "fieldtype": "Int",
+   "label": "Special Holiday (OT)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_cjlg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "rest_day",
+   "fieldtype": "Int",
+   "label": "Rest Day",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "rest_day_ot",
+   "fieldtype": "Int",
+   "label": "Rest Day (OT)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sllm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "absent",
+   "fieldtype": "Int",
+   "label": "Absent",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "leave",
+   "fieldtype": "Int",
+   "label": "Leave",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_upey",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-20 13:40:25.381785",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Attendance Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

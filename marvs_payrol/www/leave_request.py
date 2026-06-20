@@ -1,26 +1,35 @@
 import frappe
 
+
+# =========================================================
+# EMPLOYEE INFO
+# =========================================================
+import frappe
+
+
 @frappe.whitelist(allow_guest=True)
-def create_leave(employee, leave_type, from_date, to_date, reason):
+def get_employee_info(employee):
 
     if not employee:
-        return {"success": False, "message": "Employee required"}
+        return {"success": False, "message": "No employee provided"}
 
-    doc = frappe.get_doc({
-        "doctype": "PMS-Leave Request",
-        "employee": employee,
-        "leave_type": leave_type,
-        "from_date": from_date,
-        "to_date": to_date,
-        "reason": reason,
-        "status": "Pending"
-    })
+    if not frappe.db.exists("PMS-Employee", employee):
+        return {"success": False, "message": "Employee not found"}
 
-    doc.insert(ignore_permissions=True)
+    emp = frappe.get_doc("PMS-Employee", employee)
 
-    frappe.db.commit()
+    # Build full name safely
+    full_name = " ".join(filter(None, [
+        getattr(emp, "first_name", ""),
+        getattr(emp, "middle_name", ""),
+        getattr(emp, "last_name", "")
+    ])).strip()
 
     return {
         "success": True,
-        "message": "Leave request created"
+        "data": {
+            "employee_name": full_name or getattr(emp, "employee_id", emp.name),
+            "employee_status": getattr(emp, "status", "") or getattr(emp, "employment_status", ""),
+            "employee_id": emp.name
+        }
     }

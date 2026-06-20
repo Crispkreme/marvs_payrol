@@ -1,0 +1,99 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm p-4">
+
+        <h3 class="mb-4">Overtime Request Form</h3>
+
+        <!-- DATE + TIME (LIVE DISPLAY) -->
+        <div class="text-end mb-4">
+            <small class="text-muted">Current Date & Time</small><br>
+            <strong id="current_datetime">-</strong>
+        </div>
+
+        <!-- Employee ID + Overtime Type -->
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Employee ID</label>
+                <input type="text" id="employee" class="form-control" placeholder="Enter Employee ID">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Overtime Type</label>
+                <select id="overtime_type" class="form-control">
+                    <option value="Overtime">Overtime</option>
+                    <option value="Rest Day">Rest Day</option>
+                    <option value="Holiday">Holiday</option>
+                    <option value="Special Holiday">Special Holiday</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Employee Information -->
+        <div class="row mb-4">
+
+            <div class="col-md-6">
+                <small class="text-muted">Employee Name</small><br>
+                <strong id="employee-name">-</strong>
+            </div>
+
+            <div class="col-md-3">
+                <small class="text-muted">Employee Status</small><br>
+                <strong id="employee-status">-</strong>
+            </div>
+
+            <div class="col-md-3">
+                <small class="text-muted">Request Status</small><br>
+                <strong id="request_status">Pending</strong>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Attendance Date -->
+        <div class="mb-3">
+            <label class="form-label">Attendance Date</label>
+            <input type="date" id="attendance_date" class="form-control" required>
+        </div>
+
+        <!-- Start and End Time -->
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Start Time</label>
+                <input type="datetime-local" id="start_time" class="form-control" required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">End Time</label>
+                <input type="datetime-local" id="end_time" class="form-control" required>
+            </div>
+
+        </div>
+
+        <!-- Reason -->
+        <div class="mb-3">
+            <label class="form-label">Reason</label>
+            <textarea id="reason" class="form-control" rows="4"
+                placeholder="Enter reason for overtime..." required></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button id="submit_btn" class="btn btn-primary w-100">
+            Submit Overtime Request
+        </button>
+
+        <!-- Message -->
+        <div id="message" class="mt-3 text-center"></div>
+
+    </div>
+
+</div>
+
+{% endblock %}

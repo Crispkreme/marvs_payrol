@@ -1,10 +1,14 @@
 import frappe
-from frappe.utils import now_datetime, today, time_diff_in_hours, getdate
+from frappe.utils import (
+    now_datetime,
+    today,
+    time_diff_in_hours,
+    getdate
+)
 
-
-# =========================
+# =========================================================
 # OFFICE RULES
-# =========================
+# =========================================================
 OFFICE_START_HOUR = 8
 OFFICE_START_MIN = 30
 
@@ -12,9 +16,9 @@ OFFICE_END_HOUR = 17
 OFFICE_END_MIN = 30
 
 
-# =========================
+# =========================================================
 # TIME FORMATTER (UI ONLY)
-# =========================
+# =========================================================
 def format_time_only(dt):
     if not dt:
         return "-"
@@ -24,9 +28,9 @@ def format_time_only(dt):
         return "-"
 
 
-# =========================
+# =========================================================
 # TIME HELPERS
-# =========================
+# =========================================================
 def time_diff_hours(start, end):
     if start and end:
         return time_diff_in_hours(end, start)
@@ -39,23 +43,26 @@ def time_diff_minutes(start, end):
     return 0
 
 
-# =========================
-# TOTAL HOURS
-# =========================
+# =========================================================
+# DAILY TOTAL HOURS
+# =========================================================
 def compute_total_hours(doc):
-    am_hours = time_diff_hours(doc.get("am_time_in"), doc.get("am_time_out"))
-    pm_hours = time_diff_hours(doc.get("pm_time_in"), doc.get("pm_time_out"))
-    return round((am_hours or 0) + (pm_hours or 0), 2)
+    am = time_diff_hours(doc.get("am_time_in"), doc.get("am_time_out"))
+    pm = time_diff_hours(doc.get("pm_time_in"), doc.get("pm_time_out"))
+    return round((am or 0) + (pm or 0), 2)
 
 
-# =========================
-# LATE + OT
-# =========================
+# =========================================================
+# LATE + OVERTIME COMPUTATION
+# =========================================================
 def compute_late_and_ot(doc):
 
     late_minutes = 0
     ot_hours = 0
 
+    # -------------------------
+    # LATE RULE (8:30 AM)
+    # -------------------------
     if doc.am_time_in:
         office_start = doc.am_time_in.replace(
             hour=OFFICE_START_HOUR,
@@ -67,6 +74,9 @@ def compute_late_and_ot(doc):
         if doc.am_time_in > office_start:
             late_minutes = time_diff_minutes(office_start, doc.am_time_in)
 
+    # -------------------------
+    # OT RULE (5:30 PM + APPROVAL)
+    # -------------------------
     if doc.pm_time_out:
 
         office_end = doc.pm_time_out.replace(
@@ -85,14 +95,23 @@ def compute_late_and_ot(doc):
 
 
 # =========================================================
-# MONTHLY SUMMARY ENGINE (CORE PAYROLL BASE)
+# MONTHLY SUMMARY (FOR PAYROLL)
 # =========================================================
 def compute_monthly_summary(employee):
+
+    if not employee:
+        return {
+            "total_work_hours": 0,
+            "total_late_minutes": 0,
+            "total_overtime_hours": 0,
+            "present_days": 0,
+            "absent_days": 0
+        }
 
     today_date = getdate()
     start_date = today_date.replace(day=1)
 
-    data = frappe.get_all(
+    logs = frappe.get_all(
         "PMS-Employee Attendance Log",
         filters={
             "employee": employee,
@@ -112,7 +131,7 @@ def compute_monthly_summary(employee):
     present = 0
     absent = 0
 
-    for row in data:
+    for row in logs:
 
         total_hours += row.total_work_hours or 0
         total_late += row.late_minute or 0
@@ -132,9 +151,9 @@ def compute_monthly_summary(employee):
     }
 
 
-# =========================
+# =========================================================
 # EMPLOYEE INFO
-# =========================
+# =========================================================
 @frappe.whitelist(allow_guest=True)
 def get_employee_info(employee):
 
@@ -142,7 +161,10 @@ def get_employee_info(employee):
         return {}
 
     if not frappe.db.exists("PMS-Employee", employee):
-        return {"employee_name": "Not Found", "employee_id": employee}
+        return {
+            "employee_name": "Not Found",
+            "employee_id": employee
+        }
 
     emp = frappe.get_doc("PMS-Employee", employee)
 
@@ -158,9 +180,9 @@ def get_employee_info(employee):
     }
 
 
-# =========================
-# HISTORY
-# =========================
+# =========================================================
+# ATTENDANCE HISTORY (UI)
+# =========================================================
 @frappe.whitelist(allow_guest=True)
 def get_attendance_history(employee):
 
@@ -194,9 +216,9 @@ def get_attendance_history(employee):
     return data
 
 
-# =========================
-# RECORD ATTENDANCE (UPDATED CORE INTEGRATION)
-# =========================
+# =========================================================
+# RECORD ATTENDANCE (CORE LOGIC)
+# =========================================================
 @frappe.whitelist(allow_guest=True)
 def record_attendance(employee):
 
@@ -207,7 +229,10 @@ def record_attendance(employee):
 
     attendance_name = frappe.db.exists(
         "PMS-Employee Attendance Log",
-        {"employee": employee, "attendance_date": today()}
+        {
+            "employee": employee,
+            "attendance_date": today()
+        }
     )
 
     if not attendance_name:
@@ -224,34 +249,42 @@ def record_attendance(employee):
         doc.insert(ignore_permissions=True)
 
     else:
+
         doc = frappe.get_doc("PMS-Employee Attendance Log", attendance_name)
 
         if not doc.am_time_in:
             doc.am_time_in = current_time
+
         elif not doc.am_time_out:
             doc.am_time_out = current_time
+
         elif not doc.pm_time_in:
             doc.pm_time_in = current_time
+
         elif not doc.pm_time_out:
             doc.pm_time_out = current_time
+
         else:
-            return {"success": False, "message": "All logs completed today"}
+            return {
+                "success": False,
+                "message": "All attendance logs are already completed today."
+            }
 
-    # =========================
+    # =====================================================
     # COMPUTE DAILY VALUES
-    # =========================
+    # =====================================================
     doc.total_work_hours = compute_total_hours(doc)
-    late, ot = compute_late_and_ot(doc)
 
+    late, ot = compute_late_and_ot(doc)
     doc.late_minute = late
     doc.total_overtime_hours = ot
 
     doc.save(ignore_permissions=True)
     frappe.db.commit()
 
-    # =========================
-    # AUTO MONTHLY SUMMARY (NEW)
-    # =========================
+    # =====================================================
+    # MONTHLY SUMMARY (FOR PAYROLL)
+    # =====================================================
     monthly = compute_monthly_summary(employee)
 
     return {
@@ -264,7 +297,7 @@ def record_attendance(employee):
         "late_minute": doc.late_minute,
         "total_overtime_hours": doc.total_overtime_hours,
 
-        # MONTHLY (FOR PAYROLL)
+        # MONTHLY (PAYROLL READY)
         "monthly_summary": monthly,
 
         # UI TIME ONLY
@@ -272,4 +305,20 @@ def record_attendance(employee):
         "am_time_out": format_time_only(doc.am_time_out),
         "pm_time_in": format_time_only(doc.pm_time_in),
         "pm_time_out": format_time_only(doc.pm_time_out),
+    }
+
+
+# =========================================================
+# PAYROLL API (CLEAN INTERFACE)
+# =========================================================
+@frappe.whitelist()
+def get_payroll_inputs(employee):
+
+    summary = compute_monthly_summary(employee)
+
+    return {
+        "total_work_hours": summary["total_work_hours"],
+        "overtime_hours": summary["total_overtime_hours"],
+        "late_minutes": summary["total_late_minutes"],
+        "absences": summary["absent_days"]
     }

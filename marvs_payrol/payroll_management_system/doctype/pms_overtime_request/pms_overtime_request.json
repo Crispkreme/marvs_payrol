@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-18 22:47:51.646314",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "overtime_request_detail_section",
+  "employee",
+  "attendance_date",
+  "employee_status",
+  "column_break_emft",
+  "start_time",
+  "end_time",
+  "requested_hours",
+  "column_break_khjm",
+  "status",
+  "section_break_phkl",
+  "reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "overtime_request_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Overtime Request Detail"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "PMS-Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attendance_date",
+   "fieldtype": "Date",
+   "label": "Attendance Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_emft",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "requested_hours",
+   "fieldtype": "Data",
+   "label": "Requested Hours",
+   "reqd": 1
+  },
+  {
+   "default": "Pending",
+   "fieldname": "section_break_phkl",
+   "fieldtype": "Section Break",
+   "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "employee_status",
+   "fieldtype": "Select",
+   "label": "Employee Status",
+   "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "column_break_khjm",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-20 13:47:46.670662",
+ "modified_by": "Administrator",
+ "module": "Payroll Management System",
+ "name": "PMS-Overtime Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

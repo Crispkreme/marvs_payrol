@@ -248,5 +248,6 @@ app_license = "mit"
 # ignore_translatable_strings_from = []
 
 website_route_rules = [
-    {"from_route": "/leave-request", "to_route": "leave_request"}
+    {"from_route": "/leave-request", "to_route": "leave_request"},
+    {"from_route": "/overtime-request", "to_route": "overtime_request"}
 ]
