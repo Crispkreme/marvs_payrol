@@ -70,14 +70,16 @@ frappe.ready(() => {
         load_employee(employee);
     });
 
+    // =========================
     // SUBMIT LEAVE REQUEST
+    // =========================
     $("#submit").click(function (e) {
 
         e.preventDefault();
 
         let data = {
             employee: $("#employee").val(),
-            employee_name: $("#employee_name").text(),
+            employee_name: $("#employee-name").text(),
             leave_type: $("#leave_type").val(),
             from_date: $("#from_date").val(),
             to_date: $("#to_date").val(),
@@ -111,16 +113,14 @@ frappe.ready(() => {
                         </div>
                     `);
 
-                    // RESET ALL FIELDS
+                    // RESET FORM
                     $("#employee").val("");
-                    $("#employee_name").text("-");
-                    $("#employee_status").text("-");
+                    $("#employee-name").text("-");
+                    $("#employee-status").text("-");
                     $("#leave_type").prop("selectedIndex", 0);
                     $("#from_date").val("");
                     $("#to_date").val("");
                     $("#reason").val("");
-
-                    $("#employee").focus();
 
                 } else {
 
