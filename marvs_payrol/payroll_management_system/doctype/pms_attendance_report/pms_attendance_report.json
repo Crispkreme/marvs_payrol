@@ -26,7 +26,8 @@
   "rest_day_ot",
   "column_break_sllm",
   "absent",
-  "leave"
+  "leave",
+  "late"
  ],
  "fields": [
   {
@@ -40,6 +41,7 @@
    "in_list_view": 1,
    "label": "Employee",
    "options": "PMS-Employee",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -75,9 +77,12 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Active",
    "fieldname": "status",
    "fieldtype": "Select",
-   "label": "Status"
+   "label": "Status",
+   "options": "Active\nInactive",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_aowe",
@@ -158,12 +163,19 @@
   {
    "fieldname": "section_break_upey",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "late",
+   "fieldtype": "Int",
+   "label": "Late",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-20 13:40:25.381785",
+ "modified": "2026-06-21 12:11:37.576847",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Attendance Report",

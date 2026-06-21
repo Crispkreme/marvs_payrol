@@ -6,7 +6,12 @@
 
     <div class="card p-4 shadow-sm">
 
-        <h3 class="mb-4">Daily Time Record</h3>
+        <h3 class="mb-4 text-center">Daily Time Record</h3>
+
+        <div class="text-end mb-4">
+            <small class="text-muted">Current Date & Time</small><br>
+            <strong id="current_datetime">-</strong>
+        </div>
 
         <!-- =========================
              EMPLOYEE INPUT
@@ -23,33 +28,6 @@
         </div>
 
         <hr>
-
-        <!-- =========================
-             TIME IN / OUT
-        ========================== -->
-        <div class="row">
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">AM Time In</label>
-                <input type="time" id="am_time_in" class="form-control">
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">AM Time Out</label>
-                <input type="time" id="am_time_out" class="form-control">
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">PM Time In</label>
-                <input type="time" id="pm_time_in" class="form-control">
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">PM Time Out</label>
-                <input type="time" id="pm_time_out" class="form-control">
-            </div>
-
-        </div>
 
         <!-- =========================
              ATTENDANCE BUTTON

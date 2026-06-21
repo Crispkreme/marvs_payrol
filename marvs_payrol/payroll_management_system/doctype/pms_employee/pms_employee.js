@@ -5,15 +5,18 @@ frappe.ui.form.on("PMS-Employee", {
 
     refresh(frm) {
         compute_deductions(frm);
+        calculate_daily_hourly_rate(frm);
         toggle_contract_date(frm);
     },
 
     basic_salary(frm) {
         compute_deductions(frm);
+        calculate_daily_hourly_rate(frm);
     },
 
     employment_status(frm) {
         compute_deductions(frm);
+        calculate_daily_hourly_rate(frm);
     },
 
     not_contractual(frm) {
@@ -96,4 +99,24 @@ function compute_deductions(frm) {
 // =========================
 function round2(val) {
     return Math.round((val || 0) * 100) / 100;
+}
+
+// =========================
+// COMPUTATION FOR DAILY AND HOURLY RATE
+// =========================
+function calculate_daily_hourly_rate(frm) {
+
+    let salary = frm.doc.basic_salary;
+
+    if (!salary) {
+        frm.set_value("daily_rate", 0);
+        frm.set_value("hourly_rate", 0);
+        return;
+    }
+
+    let daily = salary / 26;
+    let hourly = daily / 8;
+
+    frm.set_value("daily_rate", flt(daily, 2));
+    frm.set_value("hourly_rate", flt(hourly, 2));
 }

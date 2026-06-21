@@ -1,7 +1,29 @@
+function updateDateTime() {
+
+    let now = new Date();
+
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    };
+
+    $("#current_datetime").text(
+        now.toLocaleString("en-US", options)
+    );
+}
+
 frappe.ready(() => {
 
     let current_employee = null;
 
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    
     // =========================
     // LOAD EMPLOYEE INFO
     // =========================

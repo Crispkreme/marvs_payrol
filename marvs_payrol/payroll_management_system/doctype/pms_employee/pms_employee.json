@@ -573,14 +573,18 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0",
    "fieldname": "hourly_rate",
    "fieldtype": "Currency",
-   "label": "Hourly Rate"
+   "label": "Hourly Rate",
+   "read_only": 1
   },
   {
+   "default": "0",
    "fieldname": "daily_rate",
    "fieldtype": "Currency",
-   "label": "Daily Rate"
+   "label": "Daily Rate",
+   "read_only": 1
   },
   {
    "fieldname": "government_contribution_tab",
@@ -665,7 +669,7 @@
  "image_field": "image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 17:41:40.755209",
+ "modified": "2026-06-20 21:53:23.225306",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Employee",

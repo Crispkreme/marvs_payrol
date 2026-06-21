@@ -12,8 +12,7 @@
   "status",
   "late",
   "overtime",
-  "overtime_type",
-  "work_hours",
+  "work_hour",
   "column_break_fzjj",
   "am_time_in",
   "am_time_out",
@@ -73,32 +72,28 @@
    "label": "Date"
   },
   {
+   "default": "0",
    "fieldname": "late",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Late"
   },
   {
+   "default": "0",
    "fieldname": "overtime",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Overtime"
   },
   {
-   "fieldname": "overtime_type",
-   "fieldtype": "Select",
-   "label": "Overtime Type",
-   "options": "Regular Day\nRegular Holiday\nSpecial Holiday\nSpecial Non-Working Holiday"
-  },
-  {
-   "fieldname": "work_hours",
-   "fieldtype": "Select",
-   "label": "Work Hours",
-   "options": "Regular Day\nRegular Holiday\nSpecial Holiday\nSpecial Non-Working Holiday"
+   "default": "0",
+   "fieldname": "work_hour",
+   "fieldtype": "Float",
+   "label": "Work Hour"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-20 12:32:10.018064",
+ "modified": "2026-06-20 22:48:51.944033",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Employee Attendance Log",
