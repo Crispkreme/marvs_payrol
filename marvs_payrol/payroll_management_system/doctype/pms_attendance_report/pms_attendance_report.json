@@ -47,28 +47,28 @@
   {
    "default": "0",
    "fieldname": "day_shift_hrs",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Day Shift",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "night_shift_hrs",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Night Shift",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "overtime_hrs",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Day Shift (OT)",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "night_overtime_hrs",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Night Shift (OT)",
    "read_only": 1
   },
@@ -99,28 +99,28 @@
   {
    "default": "0",
    "fieldname": "regular_holiday",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Regular Holiday",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "regular_holiday_ot",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Regular Holiday (OT)",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "special_holiday",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Special Holiday",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "special_holiday_ot",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Special Holiday (OT)",
    "read_only": 1
   },
@@ -131,14 +131,14 @@
   {
    "default": "0",
    "fieldname": "rest_day",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Rest Day",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "rest_day_ot",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Rest Day (OT)",
    "read_only": 1
   },
@@ -149,14 +149,14 @@
   {
    "default": "0",
    "fieldname": "absent",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Absent",
    "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "leave",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Leave",
    "read_only": 1
   },
@@ -167,7 +167,7 @@
   {
    "default": "0",
    "fieldname": "late",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Late",
    "read_only": 1
   }
@@ -175,7 +175,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-21 12:11:37.576847",
+ "modified": "2026-06-21 13:57:13.056136",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Attendance Report",

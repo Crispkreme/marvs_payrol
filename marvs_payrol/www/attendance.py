@@ -250,6 +250,7 @@ def compute_late(doc):
 # =========================================================
 def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
     try:
+
         if not employee:
             return
 
@@ -268,15 +269,8 @@ def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
         logs = frappe.get_all(
             "PMS-Employee Attendance Log",
             filters={"employee": employee},
-            fields=["work_hour", "overtime", "status"]
+            fields=["work_hour", "overtime", "status", "late"]
         )
-
-        # RESET
-        report_doc.day_shift_hrs = 0
-        report_doc.overtime_hrs = 0
-        report_doc.absent = 0
-        report_doc.leave = 0
-        report_doc.rest_day = 0
 
         # COMPUTE
         for d in logs:
@@ -285,6 +279,7 @@ def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
             if status == "Present":
                 report_doc.day_shift_hrs += work_hour
                 report_doc.overtime_hrs += overtime
+                report_doc.late += late
 
             elif status == "Absent":
                 report_doc.absent += 1
@@ -296,6 +291,8 @@ def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
                 report_doc.rest_day += work_hour
 
         report_doc.save(ignore_permissions=True)
+
+        frappe.db.commit()
 
         frappe.msgprint("✅ Attendance Report updated successfully")
 
@@ -352,10 +349,6 @@ def record_attendance(employee):
         doc.overtime = safe_float(doc.overtime)
         doc.work_hour = compute_work_hours(doc)
         doc.late = compute_late(doc)
-
-        frappe.msgprint(f"DEBUG (work_hour): {doc.work_hour}")
-        frappe.msgprint(f"DEBUG (overtime): {doc.overtime}")
-        frappe.msgprint(f"DEBUG (late): {doc.late}")
 
         doc.save(ignore_permissions=True)
 
