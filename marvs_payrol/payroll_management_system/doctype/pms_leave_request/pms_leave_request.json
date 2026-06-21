@@ -9,6 +9,7 @@
   "employee",
   "employee_name",
   "column_break_qgni",
+  "leave_applied_to_attendance",
   "status",
   "section_break_ozaa",
   "leave_type",
@@ -88,12 +89,19 @@
    "fieldname": "reason",
    "fieldtype": "Text Editor",
    "label": "Reason"
+  },
+  {
+   "default": "0",
+   "fieldname": "leave_applied_to_attendance",
+   "fieldtype": "Check",
+   "label": "has leave approved?",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 09:17:53.432329",
+ "modified": "2026-06-22 05:14:28.457443",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Leave Request",
