@@ -1,0 +1,103 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h2>🏖️ Leave Requests</h2>
+        <button class="btn btn-outline-primary btn-sm" onclick="goHome()">
+            🏠 Home
+        </button>
+        <button class="btn-request" onclick="goLeaveForm()">
+            + Request Leave
+        </button>
+    </div>
+
+    <!-- TABLE -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Type</th>
+                <th>Days</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Status</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+
+        <tbody id="leaveTable">
+            <tr><td colspan="7">Loading...</td></tr>
+        </tbody>
+    </table>
+
+</div>
+
+<style>
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    font-family: Arial;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* BUTTON */
+.btn-request {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-request:hover {
+    background: #0056b3;
+}
+
+/* TABLE */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.table th {
+    background: #f5f5f5;
+}
+
+</style>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="/assets/marvs_payrol/js/leave_request_table.js"></script>
+
+<script>
+function goLeaveForm() {
+    window.location.href = "/leave-request";
+}
+function goHome() {
+    window.location.href = "/dashboard";
+}
+</script>
+
+{% endblock %}

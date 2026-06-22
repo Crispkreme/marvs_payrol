@@ -122,6 +122,10 @@ frappe.ready(() => {
                     $("#to_date").val("");
                     $("#reason").val("");
 
+                    setTimeout(() => {
+                        window.location.href = "/leave-request-table";
+                    }, 1000);
+
                 } else {
 
                     $("#message").html(`

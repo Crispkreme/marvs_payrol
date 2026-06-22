@@ -34,7 +34,7 @@ def get_employee_info(employee):
 # =========================
 # CREATE LEAVE REQUEST
 # =========================
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def create_leave(employee, employee_name, leave_type, from_date, to_date, reason):
 
     try:
