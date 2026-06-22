@@ -250,5 +250,6 @@ app_license = "mit"
 website_route_rules = [
     {"from_route": "/leave-request", "to_route": "leave_request"},
     {"from_route": "/leave-request-table", "to_route": "leave_request_table"},
-    {"from_route": "/overtime-request", "to_route": "overtime_request"}
+    {"from_route": "/overtime-request", "to_route": "overtime_request"},
+    {"from_route": "/overtime-request-table", "to_route": "overtime_request_table"}
 ]

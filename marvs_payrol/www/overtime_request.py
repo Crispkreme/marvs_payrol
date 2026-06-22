@@ -37,7 +37,7 @@ def get_employee_info(employee):
 # =====================================================
 # SUBMIT OVERTIME
 # =====================================================
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def create_overtime(
     employee,
     attendance_date,
