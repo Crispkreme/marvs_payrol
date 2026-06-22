@@ -82,8 +82,19 @@ frappe.ready(() => {
             attendance_date: $("#attendance_date").val(),
             start_time: $("#start_time").val(),
             end_time: $("#end_time").val(),
-            reason: $("#reason").val()
+            reason: $("#reason").val(),
+            overtime_type: $("#overtime_type").val() 
         };
+        
+        if (!data.overtime_type) {
+            $("#message").html(`
+                <div class="alert alert-danger">
+                    Please select overtime type
+                </div>
+            `);
+            return;
+        }
+
 
         if (!data.employee || !data.attendance_date || !data.start_time || !data.end_time) {
             $("#message").html(`

@@ -54,18 +54,16 @@ class PMSOvertimeRequest(Document):
             attendance_name
         )
 
-        ot_hours = flt(self.requested_hours)
+        total_hours = flt(self.requested_hours)
 
-        # Safety check
-        if ot_hours > flt(attendance.work_hour):
-            frappe.throw(
-                f"OT ({ot_hours}) cannot exceed work hours ({attendance.work_hour})"
-            )
+        # Split hours
+        regular_hours = min(total_hours, 8)
+        ot_hours = max(total_hours - 8, 0)
 
         # ========================================
-        # TRANSFER HOURS
+        # UPDATE ATTENDANCE LOG
         # ========================================
-        attendance.work_hour = flt(attendance.work_hour) - ot_hours
+        attendance.work_hour = regular_hours
         attendance.overtime = ot_hours
 
         attendance.save(ignore_permissions=True)
@@ -79,48 +77,43 @@ class PMSOvertimeRequest(Document):
             "name"
         )
 
-        if report_name:
+        if not report_name:
+            frappe.throw("Attendance Report not found.")
 
-            report = frappe.get_doc(
-                "PMS-Attendance Report",
-                report_name
-            )
+        report = frappe.get_doc(
+            "PMS-Attendance Report",
+            report_name
+        )
 
-            report.day_shift_hrs = 0
-            report.overtime_hrs = 0
-            report.late = 0
-            report.absent = 0
-            report.leave = 0
+        # Regular Day
+        if self.overtime_type == "Overtime":
 
-            logs = frappe.get_all(
-                "PMS-Employee Attendance Log",
-                filters={
-                    "employee": self.employee
-                },
-                fields=[
-                    "work_hour",
-                    "overtime",
-                    "late",
-                    "status"
-                ]
-            )
+            report.day_shift_hrs += regular_hours
+            report.overtime_hrs += ot_hours
 
-            for d in logs:
+        # Regular Holiday
+        elif self.overtime_type == "Holiday":
 
-                if d.status == "Present":
-                    report.day_shift_hrs += flt(d.work_hour)
-                    report.overtime_hrs += flt(d.overtime)
-                    report.late += flt(d.late)
+            report.regular_holiday += regular_hours
+            report.regular_holiday_ot += ot_hours
 
-                elif d.status == "Absent":
-                    report.absent += 1
+        # Special Holiday
+        elif self.overtime_type == "Special Holiday":
 
-                elif d.status == "Leave":
-                    report.leave += 1
+            report.special_holiday += regular_hours
+            report.special_holiday_ot += ot_hours
 
-            report.save(ignore_permissions=True)
+        # Rest Day
+        elif self.overtime_type == "Rest Day":
 
-        # Prevent duplicate application
+            report.rest_day += regular_hours
+            report.rest_day_ot += ot_hours
+
+        report.save(ignore_permissions=True)
+
+        # ========================================
+        # MARK AS APPLIED
+        # ========================================
         self.db_set(
             "ot_applied_to_attendance",
             1

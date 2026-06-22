@@ -15,6 +15,7 @@
   "requested_hours",
   "column_break_khjm",
   "status",
+  "overtime_type",
   "ot_applied_to_attendance",
   "section_break_phkl",
   "reason"
@@ -96,12 +97,19 @@
    "fieldtype": "Check",
    "label": "is approved?",
    "read_only": 1
+  },
+  {
+   "fieldname": "overtime_type",
+   "fieldtype": "Select",
+   "label": "Overtime Type",
+   "options": "Overtime\nRest Day\nHoliday\nSpecial Holiday",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-22 08:41:43.335264",
+ "modified": "2026-06-22 11:43:29.185446",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Overtime Request",

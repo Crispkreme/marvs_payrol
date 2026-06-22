@@ -38,12 +38,22 @@ def get_employee_info(employee):
 # SUBMIT OVERTIME
 # =====================================================
 @frappe.whitelist()
-def create_overtime(employee, attendance_date, start_time, end_time, reason):
+def create_overtime(
+    employee,
+    attendance_date,
+    start_time,
+    end_time,
+    reason,
+    overtime_type
+):
 
     try:
 
         if not employee:
-            return {"success": False, "message": "Employee is required"}
+            return {
+                "success": False,
+                "message": "Employee is required"
+            }
 
         fmt = "%H:%M"
 
@@ -52,13 +62,18 @@ def create_overtime(employee, attendance_date, start_time, end_time, reason):
 
         diff = end - start
 
+        # Crossing midnight
         if diff.total_seconds() < 0:
             diff = (
-                (datetime.strptime("24:00", fmt) - start) +
+                (datetime.strptime("24:00", fmt) - start)
+                +
                 (end - datetime.strptime("00:00", fmt))
             )
 
-        hours = round(diff.total_seconds() / 3600, 2)
+        hours = round(
+            diff.total_seconds() / 3600,
+            2
+        )
 
         doc = frappe.new_doc("PMS-Overtime Request")
 
@@ -68,10 +83,13 @@ def create_overtime(employee, attendance_date, start_time, end_time, reason):
         doc.end_time = end_time
         doc.requested_hours = hours
         doc.reason = reason
+        doc.overtime_type = overtime_type
         doc.status = "Pending"
         doc.employee_status = "Pending"
 
         doc.insert(ignore_permissions=True)
+
+        frappe.db.commit()
 
         return {
             "success": True,
