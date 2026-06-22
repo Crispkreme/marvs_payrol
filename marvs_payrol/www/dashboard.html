@@ -9,6 +9,12 @@
         👋 WELCOME, <span id="emp_name">EMPLOYEE</span>
     </div>
 
+    <div class="kpi-grid">
+        <button class="btn payroll-btn mb-2 btn-primary" onclick="generatePayroll()">
+            💰 Generate Payroll
+        </button>
+    </div>
+
     <!-- MAIN KPI GRID -->
     <div class="kpi-grid">
 
@@ -196,6 +202,17 @@ function goOT() {
 
 function goLeave() {
     window.location.href = "/leave-request-table";
+}
+
+function generatePayroll() {
+    frappe.show_alert({
+        message: "Opening Payroll Page...",
+        indicator: "green"
+    });
+
+    setTimeout(() => {
+        window.location.href = "/payroll";
+    }, 300);
 }
 
 </script>

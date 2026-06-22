@@ -1,0 +1,141 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="payroll-wrapper">
+
+    <!-- HEADER -->
+    <div class="payroll-header">
+        <h2>💰 Payroll Slip</h2>
+        <button onclick="goBack()" class="btn">⬅ Back</button>
+    </div>
+
+    <!-- EMPLOYEE INFO -->
+    <div class="card">
+
+        <h3>Employee Details</h3>
+
+        <div class="grid-2">
+            <div><b>Employee ID:</b> <span id="employee">-</span></div>
+            <div><b>Name:</b> <span id="employee_name">-</span></div>
+            <div><b>Status:</b> <span id="employment_status">-</span></div>
+            <div><b>Payroll Period:</b> <span id="payroll_period">-</span></div>
+        </div>
+
+    </div>
+
+    <!-- SALARY DETAILS -->
+    <div class="card">
+
+        <h3>Salary Breakdown</h3>
+
+        <div class="grid-2">
+
+            <div>Basic Pay: <b id="basic_pay">0</b></div>
+            <div>Allowance: <b id="allowance">0</b></div>
+            <div>Daily Rate: <b id="daily_rate">0</b></div>
+            <div>Hourly Rate: <b id="hourly_rate">0</b></div>
+
+            <div>Overtime Pay: <b id="overtime_pay">0</b></div>
+            <div>Total Deduction: <b id="deduction">0</b></div>
+            <div><b>Net Pay:</b> <b id="net_pay">0</b></div>
+
+        </div>
+
+    </div>
+
+    <!-- CONTRIBUTIONS -->
+    <div class="card">
+
+        <h3>Deductions</h3>
+
+        <div class="grid-2">
+
+            <div>SSS: <b id="sss_deduction">0</b></div>
+            <div>Pag-IBIG: <b id="pagibig_deduction">0</b></div>
+            <div>PhilHealth: <b id="philhealth_deduction">0</b></div>
+            <div>TIN: <b id="tin_deduction">0</b></div>
+
+        </div>
+
+    </div>
+
+    <!-- ATTENDANCE -->
+    <div class="card">
+
+        <h3>Attendance Summary</h3>
+
+        <div class="grid-2">
+
+            <div>Total Work Hours: <b id="work">0</b></div>
+            <div>Total OT: <b id="ot">0</b></div>
+            <div>Total Late: <b id="late">0</b></div>
+            <div>Total Absence: <b id="absent">0</b></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+.payroll-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    font-family: Arial;
+}
+
+/* HEADER */
+.payroll-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* GRID */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="/assets/marvs_payrol/js/payroll.js"></script>
+
+<script>
+function goBack() {
+    window.location.href = "/dashboard";
+}
+</script>
+
+{% endblock %}
