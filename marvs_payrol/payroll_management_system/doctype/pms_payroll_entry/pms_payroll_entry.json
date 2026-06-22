@@ -5,13 +5,20 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "payroll_entry_detail_section",
+  "employee_detail_section",
   "employee",
-  "payroll_period",
+  "section_break_yzjh",
+  "employee_name",
+  "column_break_ficq",
   "employment_status",
+  "payroll_entry_detail_section",
+  "payroll_period",
   "column_break_tjkn",
   "basic_pay",
   "allowance",
+  "daily_rate",
+  "hourly_rate",
+  "column_break_czgb",
   "overtime_pay",
   "deduction",
   "net_pay",
@@ -24,9 +31,13 @@
   "section_break_sxve",
   "total_work_hr",
   "total_overtime_min",
+  "total_work_hr_display",
+  "total_overtime_display",
   "column_break_tkja",
   "total_late_min",
-  "total_absent"
+  "total_absent",
+  "total_late_display",
+  "total_absent_display"
  ],
  "fields": [
   {
@@ -79,7 +90,8 @@
    "fieldname": "employment_status",
    "fieldtype": "Select",
    "label": "Employment Status",
-   "options": "OJT\nTrainee\nProbationary\nPart-time\nFull-time"
+   "options": "OJT\nTrainee\nProbationary\nPart-time\nFull-time",
+   "read_only": 1
   },
   {
    "fieldname": "allowance",
@@ -127,11 +139,13 @@
   {
    "fieldname": "total_work_hr",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Work (hr)"
   },
   {
    "fieldname": "total_overtime_min",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Overtime (min)"
   },
   {
@@ -141,18 +155,76 @@
   {
    "fieldname": "total_late_min",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Late (min)"
   },
   {
    "fieldname": "total_absent",
    "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Total Absent"
+  },
+  {
+   "fieldname": "daily_rate",
+   "fieldtype": "Currency",
+   "label": "Daily Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "hourly_rate",
+   "fieldtype": "Currency",
+   "label": "Hourly Rate",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_czgb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Detail"
+  },
+  {
+   "fieldname": "section_break_yzjh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ficq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_work_hr_display",
+   "fieldtype": "Data",
+   "label": "Total Work"
+  },
+  {
+   "fieldname": "total_overtime_display",
+   "fieldtype": "Data",
+   "label": "Total Overtime"
+  },
+  {
+   "fieldname": "total_late_display",
+   "fieldtype": "Data",
+   "label": "Total Late"
+  },
+  {
+   "fieldname": "total_absent_display",
+   "fieldtype": "Data",
    "label": "Total Absent"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-18 12:49:20.363681",
+ "modified": "2026-06-22 15:16:41.818842",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Payroll Entry",

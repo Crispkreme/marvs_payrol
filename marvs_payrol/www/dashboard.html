@@ -1,0 +1,203 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="dashboard-wrapper">
+
+    <!-- WELCOME -->
+    <div class="welcome-box">
+        👋 WELCOME, <span id="emp_name">EMPLOYEE</span>
+    </div>
+
+    <!-- MAIN KPI GRID -->
+    <div class="kpi-grid">
+
+        <div class="kpi-box">
+            <div class="kpi-icon">🕒</div>
+            <div class="kpi-title">Work Hours</div>
+            <div class="kpi-value" id="work">0HRS</div>
+        </div>
+
+        <div class="kpi-box">
+            <div class="kpi-icon">⏱️</div>
+            <div class="kpi-title">Overtime</div>
+            <div class="kpi-value" id="ot">0HRS</div>
+        </div>
+
+        <div class="kpi-box">
+            <div class="kpi-icon">⚠️</div>
+            <div class="kpi-title">Late</div>
+            <div class="kpi-value" id="late">0</div>
+        </div>
+
+        <div class="kpi-box">
+            <div class="kpi-icon">❌</div>
+            <div class="kpi-title">Absences</div>
+            <div class="kpi-value" id="absent">0</div>
+        </div>
+
+    </div>
+
+    <!-- REQUEST KPI GRID (2 items only) -->
+    <div class="kpi-grid-two">
+
+        <div class="kpi-box clickable" onclick="goOT()">
+            <div class="kpi-icon">📌</div>
+            <div class="kpi-title">OT Requests</div>
+            <div class="kpi-value" id="ot_req">0</div>
+        </div>
+
+        <div class="kpi-box clickable" onclick="goLeave()">
+            <div class="kpi-icon">🏖️</div>
+            <div class="kpi-title">Leave Requests</div>
+            <div class="kpi-value" id="leave_req">0</div>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:20px;">
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
+<style>
+
+.dashboard-wrapper {
+    max-width: 900px;
+    margin: 60px auto;
+    font-family: Arial;
+}
+
+.welcome-box {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 4 columns */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* 2 columns (requests) */
+.kpi-grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.kpi-box {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.clickable {
+    cursor: pointer;
+    transition: 0.2s;
+}
+.clickable:hover {
+    transform: scale(1.03);
+}
+
+.kpi-icon { font-size: 22px; }
+.kpi-title { font-size: 13px; color: #666; }
+.kpi-value { font-size: 18px; font-weight: bold; margin-top: 5px; }
+
+@media (max-width: 900px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid-two { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 500px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+window.format_hours = function (hours) {
+    let total_minutes = Math.round(Number(hours || 0) * 60);
+    let h = Math.floor(total_minutes / 60);
+    let m = total_minutes % 60;
+    return `${h}h ${m}m`;
+};
+
+frappe.ready(function () {
+
+    let employee = JSON.parse(localStorage.getItem("employee"));
+
+    if (!employee) {
+        window.location.href = "/login";
+        return;
+    }
+
+    document.getElementById("emp_name").innerText =
+        employee.full_name || "Employee";
+
+    frappe.call({
+        method: "marvs_payrol.www.dashboard.get_employee_dashboard",
+        args: {
+            employee: employee.employee_id
+        },
+        callback: function (r) {
+
+            let d = r.message || {};
+
+            let work = d.total_work_hr || 0;
+            let ot = d.total_ot || 0;
+            let late = d.total_late || 0;
+            let absent = d.total_absent || 0;
+
+            let leave = d.total_leave || 0;
+            let ot_req = d.total_ot_request || 0;
+
+            document.getElementById("work").innerText = format_hours(work);
+            document.getElementById("ot").innerText = format_hours(ot);
+            document.getElementById("late").innerText = format_hours(late / 60);
+            document.getElementById("absent").innerText = `${absent} day(s)`;
+
+            document.getElementById("leave_req").innerText = leave;
+            document.getElementById("ot_req").innerText = ot_req;
+        }
+    });
+
+});
+
+// LOGOUT
+function logout() {
+
+    frappe.call({
+        method: "marvs_payrol.api.login.employee_logout",
+        callback: function () {
+
+            localStorage.removeItem("employee");
+            window.location.href = "/login";
+        }
+    });
+}
+
+function goOT() {
+    window.location.href = "/ot-request";
+}
+
+function goLeave() {
+    window.location.href = "/leave-request";
+}
+
+</script>
+
+{% endblock %}

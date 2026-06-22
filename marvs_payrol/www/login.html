@@ -1,0 +1,37 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<div class="page-card" style="max-width: 420px; margin: 100px auto;">
+
+    <div class="page-card-head">
+        <h3>Login</h3>
+    </div>
+
+    <div class="page-card-body">
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="text" class="form-control" id="email" placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+            <label>Employee ID</label>
+            <input type="password" class="form-control" id="password" placeholder="EMP-00001">
+        </div>
+
+        <button class="btn btn-primary btn-block" id="loginBtn">
+            Login
+        </button>
+
+        <p id="msg" class="text-center" style="margin-top:10px;"></p>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+<script src="/assets/marvs_payrol/js/login.js"></script>
+{% endblock %}
