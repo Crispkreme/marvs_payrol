@@ -15,6 +15,7 @@
   "requested_hours",
   "column_break_khjm",
   "status",
+  "ot_applied_to_attendance",
   "section_break_phkl",
   "reason"
  ],
@@ -88,12 +89,19 @@
   {
    "fieldname": "column_break_khjm",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ot_applied_to_attendance",
+   "fieldtype": "Check",
+   "label": "is approved?",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-06-20 13:47:46.670662",
+ "modified": "2026-06-22 08:41:43.335264",
  "modified_by": "Administrator",
  "module": "Payroll Management System",
  "name": "PMS-Overtime Request",

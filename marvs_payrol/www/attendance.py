@@ -277,8 +277,14 @@ def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
             status = d.get("status")
 
             if status == "Present":
-                report_doc.day_shift_hrs += work_hour
-                report_doc.overtime_hrs += overtime
+                # report_doc.day_shift_hrs += work_hour
+                # report_doc.overtime_hrs += overtime
+
+                regular_hours = (work_hour or 0) - (overtime or 0)
+
+                report_doc.day_shift_hrs += regular_hours
+                report_doc.overtime_hrs += overtime or 0
+
                 report_doc.late += late
 
             elif status == "Absent":

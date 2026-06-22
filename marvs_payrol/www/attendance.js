@@ -76,9 +76,6 @@ frappe.ready(() => {
                             <td>${row.am_time_out || "-"}</td>
                             <td>${row.pm_time_in || "-"}</td>
                             <td>${row.pm_time_out || "-"}</td>
-                            <td>${row.total_work_hours || 0}</td>
-                            <td>${row.late_minute || 0}</td>
-                            <td>${row.total_overtime_hours || 0}</td>
                         </tr>
                     `;
                 });
