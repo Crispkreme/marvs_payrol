@@ -33,6 +33,37 @@ def compute_total_hours(doc):
     pm = time_diff_hours(doc.get("pm_time_in"), doc.get("pm_time_out"))
     return round((am or 0) + (pm or 0), 2)
 
+# =========================================================
+# NIGHT SHIFT
+# =========================================================
+def compute_night_hours(time_in, time_out):
+
+    if not time_in or not time_out:
+        return 0
+
+    # Night window: 10PM → 6AM
+    night_start = time_in.replace(hour=22, minute=0, second=0, microsecond=0)
+    night_end = time_in.replace(hour=6, minute=0, second=0, microsecond=0)
+
+    # handle overnight
+    if time_out < time_in:
+        time_out += timedelta(days=1)
+        night_end += timedelta(days=1)
+
+    total_night = 0
+
+    current = time_in
+
+    while current < time_out:
+
+        next_min = min(current.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1), time_out)
+
+        if current.hour >= 22 or current.hour < 6:
+            total_night += (next_min - current).total_seconds() / 3600
+
+        current = next_min
+
+    return round(total_night, 2)
 
 # =========================================================
 # LATE + OVERTIME
@@ -248,13 +279,13 @@ def compute_late(doc):
 # =========================================================
 # UPDATE ATTENDANCE REPORT
 # =========================================================
-def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
+def update_attendance_report(employee):
+
     try:
 
         if not employee:
             return
 
-        # ALWAYS fetch existing record
         report_name = frappe.db.get_value(
             "PMS-Attendance Report",
             {"employee": employee},
@@ -262,54 +293,61 @@ def update_attendance_report(employee, work_hour=0, overtime=0, late=0):
         )
 
         if not report_name:
-            frappe.throw("No existing Attendance Report found for this employee")
+            return
 
-        report_doc = frappe.get_doc("PMS-Attendance Report", report_name)
+        report = frappe.get_doc("PMS-Attendance Report", report_name)
+
+        # RESET
+        report.day_shift_hrs = 0
+        report.overtime_hrs = 0
+        report.night_shift_hrs = 0
+        report.night_overtime_hrs = 0
+        report.absent = 0
+        report.leave = 0
+        report.late = 0
 
         logs = frappe.get_all(
             "PMS-Employee Attendance Log",
             filters={"employee": employee},
-            fields=["work_hour", "overtime", "status", "late"]
+            fields=[
+                "status",
+                "work_hour",
+                "overtime",
+                "late",
+                "night_shift_hrs",
+                "night_overtime"
+            ]
         )
 
-        # COMPUTE
         for d in logs:
-            status = d.get("status")
 
-            if status == "Present":
-                # report_doc.day_shift_hrs += work_hour
-                # report_doc.overtime_hrs += overtime
+            if d.status == "Present":
 
-                regular_hours = (work_hour or 0) - (overtime or 0)
+                report.day_shift_hrs += flt(d.work_hour)
+                report.overtime_hrs += flt(d.overtime)
 
-                report_doc.day_shift_hrs += regular_hours
-                report_doc.overtime_hrs += overtime or 0
+                report.night_shift_hrs += flt(d.night_shift_hrs)
+                report.night_overtime_hrs += flt(d.night_overtime)
 
-                report_doc.late += late
+                report.late += flt(d.late)
 
-            elif status == "Absent":
-                report_doc.absent += 1
+            elif d.status == "Absent":
+                report.absent += 1
 
-            elif status == "Leave":
-                report_doc.leave += 1
+            elif d.status == "Leave":
+                report.leave += 1
 
-            elif status == "Rest Day":
-                report_doc.rest_day += work_hour
-
-        report_doc.save(ignore_permissions=True)
-
-        frappe.db.commit()
-
-        frappe.msgprint("✅ Attendance Report updated successfully")
+        report.save(ignore_permissions=True)
 
     except Exception:
         frappe.log_error(frappe.get_traceback(), "ATTENDANCE REPORT ERROR")
-
+        
 # =========================================================
 # RECORD ATTENDANCE
 # =========================================================
 @frappe.whitelist(allow_guest=True)
 def record_attendance(employee):
+
     try:
 
         if not employee:
@@ -334,6 +372,8 @@ def record_attendance(employee):
                 "work_hour": 0,
                 "overtime": 0,
                 "late": 0,
+                "night_shift_hrs": 0,
+                "night_overtime": 0,
                 "day_type": "Regular Day"
             })
 
@@ -345,25 +385,52 @@ def record_attendance(employee):
 
             if not doc.am_time_in:
                 doc.am_time_in = current_time
+
             elif not doc.am_time_out:
                 doc.am_time_out = current_time
+
             elif not doc.pm_time_in:
                 doc.pm_time_in = current_time
+
             elif not doc.pm_time_out:
                 doc.pm_time_out = current_time
 
+        # ======================================
+        # FIXED TIME PICKING
+        # ======================================
+        time_in = doc.am_time_in
+        time_out = (
+            doc.pm_time_out or
+            doc.pm_time_in or
+            doc.am_time_out
+        )
+
+        if time_in and time_out:
+
+            time_in = frappe.utils.get_datetime(time_in)
+            time_out = frappe.utils.get_datetime(time_out)
+
+            if time_out < time_in:
+                time_out += timedelta(days=1)
+
+            total_hours = (time_out - time_in).total_seconds() / 3600
+
+            night_hours = compute_night_hours(time_in, time_out)
+
+            regular_hours = max(total_hours - night_hours, 0)
+
+            doc.work_hour = round(regular_hours, 2)
+            doc.night_shift_hrs = round(night_hours, 2)
+
+            # OPTIONAL: simple night OT rule
+            doc.night_overtime = max(doc.night_shift_hrs - 8, 0)
+
         doc.overtime = safe_float(doc.overtime)
-        doc.work_hour = compute_work_hours(doc)
         doc.late = compute_late(doc)
 
         doc.save(ignore_permissions=True)
 
-        update_attendance_report(
-            employee,
-            work_hour=safe_float(doc.work_hour),
-            overtime=safe_float(doc.overtime),
-            late=safe_float(doc.late)
-        )
+        update_attendance_report(employee)
 
         frappe.db.commit()
 
@@ -371,7 +438,8 @@ def record_attendance(employee):
             "success": True,
             "message": "Attendance recorded successfully",
             "work_hour": doc.work_hour,
-            "overtime": doc.overtime,
+            "night_shift": doc.night_shift_hrs,
+            "night_overtime": doc.night_overtime,
             "late": doc.late
         }
 
