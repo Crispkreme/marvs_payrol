@@ -6,13 +6,20 @@ def employee_login(email, password):
     employee = frappe.db.get_value(
         "PMS-Employee",
         {"email_address": email},
-        ["name", "full_name", "email_address", "employment_status", "image"],
+        [
+            "name",
+            "full_name",
+            "email_address",
+            "employment_status",
+            "image"
+        ],
         as_dict=True
     )
 
     if not employee:
         return None
 
+    # Employee ID is used as password
     if password != employee.name:
         return None
 
@@ -24,7 +31,6 @@ def employee_login(email, password):
         "image": employee.image
     }
 
-@frappe.whitelist()
-def employee_logout():
-    frappe.local.login_manager.logout()
-    return {"message": "Logged out successfully"}
+
+def get_context(context):
+    context.no_cache = 1

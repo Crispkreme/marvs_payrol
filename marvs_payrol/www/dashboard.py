@@ -49,3 +49,8 @@ def get_employee_dashboard(employee):
         "total_late": doc.late or 0,
         "total_ot": ot_hours
     }
+
+def get_context(context):
+    context.no_cache = 1
+    context.no_header = True
+    context.no_footer = True
